@@ -1,7 +1,7 @@
 ## Installation
 
 ```
-npm install --save google-distance-matrix
+npm install --save aob-google-distance-matrix
 ```
 
 ## Example
