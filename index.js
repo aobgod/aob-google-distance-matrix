@@ -135,8 +135,14 @@ DistanceMatrix.prototype.reset = function() {
 	return this;
 }
 
-DistanceMatrix.prototype.checker = function() {
+DistanceMatrix.prototype.check = function() {
 	console.log(this.options);
+	return this;
+}
+
+DistanceMatrix.prototype.urlcheck = function() {
+	let requestURL = `${GOOGLE_DISTANCE_MATRIX_API_URL}${urlSet(this.options)}`;
+	console.log(requestURL);
 	return this;
 }
 
@@ -147,7 +153,7 @@ function urlSet (options) {
 		if (!options[key]) throw new Error(`Missing ${key} values!`)
 		$string ? connector = '&' : connector = '';
 		key === 'origins' || key === 'destinations' ?
-			$string += `${connector}${key}=${options[key].join(SEPARATOR).replace(/\s/g, '+')}` :
+			$string += `${connector}${key}=${(typeof options[key] === 'string' ? [options[key]] : options[key]).join(SEPARATOR).replace(/\s/g, '+')}` :
 			$string += `${connector}${key}=${options[key].replace(/\s/g, '+')}`
 	}
 	return $string;
