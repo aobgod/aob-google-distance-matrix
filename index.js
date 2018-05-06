@@ -51,6 +51,15 @@ DistanceMatrix.prototype.destinations = function(destination) {
 	return this;
 }
 
+DistanceMatrix.prototype.departure_time = function(departureTime) {
+	if (!(new Date(departureTime).getTime() > 0)) {
+		delete this.departure_time;
+		throw new Error(`Invalid Departure Time: ${departureTime} Ex. Unix Timestamp: ${new Date().getTime()}`);
+	}
+	this.options.departure_time = String(departureTime);
+	return this;
+}
+
 DistanceMatrix.prototype.mode = function(mode) {
 	let $mode = mode.split(SEPARATOR);
 	$mode.forEach(_mode => {
@@ -154,7 +163,7 @@ function urlSet (options) {
 		$string ? connector = '&' : connector = '';
 		key === 'origins' || key === 'destinations' ?
 			$string += `${connector}${key}=${(typeof options[key] === 'string' ? [options[key]] : options[key]).join(SEPARATOR).replace(/\s/g, '+')}` :
-			$string += `${connector}${key}=${String(options[key]).replace(/\s/g, '+')}`
+			$string += `${connector}${key}=${options[key].replace(/\s/g, '+')}`
 	}
 	return $string;
 }
