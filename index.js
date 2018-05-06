@@ -154,7 +154,7 @@ function urlSet (options) {
 		$string ? connector = '&' : connector = '';
 		key === 'origins' || key === 'destinations' ?
 			$string += `${connector}${key}=${(typeof options[key] === 'string' ? [options[key]] : options[key]).join(SEPARATOR).replace(/\s/g, '+')}` :
-			$string += `${connector}${key}=${options[key].replace(/\s/g, '+')}`
+			$string += `${connector}${key}=${String(options[key]).replace(/\s/g, '+')}`
 	}
 	return $string;
 }
